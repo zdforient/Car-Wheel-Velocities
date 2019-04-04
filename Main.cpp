@@ -16,15 +16,19 @@ The project aims to
 using namespace std;
 int main()
 {
+	//input file location
 	char* file_location = "cars_passing_input.mp4";
+	//create a new class to process the video
 	myVideo myvideo(file_location);
-	//find the wheels
+	//find the wheels and calculate speed of each wheels
 	myvideo.Operate();
-	//1 if save the result to create a video, 0 otherwise
+	//1 if show results frame by frame, 0 ohterwise
+	//1 if saveresult, 0 otherwise
 	int show = 0;
 	int saveresult = 1;
+	//open the file to read it and print wheels and speeds to each frame
 	myvideo.cap.open(file_location);
-
+	//show and save results
 	myvideo.Showresult(show, saveresult);
 
 	return 0;
