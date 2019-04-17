@@ -130,8 +130,8 @@ void myVideo::Showresult(int show, int save) {
 				if (wheels[i]->framenum[j] == count) {
 					//draw wheels to the frame
 					circle(frame, wheels[i]->position[j] + Point(0, YPIXEL / 3), wheels[i]->radius[j], Scalar(0, 0, 255), 3, 8, 0);
-					putText(frame, "Num: " + to_string(wheels[i]->number), wheels[i]->position[j] + Point(0, YPIXEL / 3), 1, 3, Scalar(0, 255, 255), 3);
-					putText(frame, "Spd: " + to_string(wheels[i]->spd[j]), wheels[i]->position[j] + Point(0, YPIXEL / 3) + Point(0,50), 1, 3, Scalar(255, 0, 255), 3);
+					putText(frame, "Number: " + to_string(wheels[i]->number), wheels[i]->position[j] + Point(0, YPIXEL / 3), 1, 3, Scalar(0, 255, 255), 3);
+					putText(frame, "Speed: " + to_string(wheels[i]->spd[j]), wheels[i]->position[j] + Point(0, YPIXEL / 3) + Point(0,50), 1, 3, Scalar(255, 0, 255), 3);
 				}
 			}
 		}
@@ -162,12 +162,16 @@ bool myVideo::isWheel(Point center, int radius) {
 	return 0;
 }
 
-//calculate speed
+//calculate average speed
 void myVideo::Calculatespeed() {
 	for (auto &i : wheels) {
-		i->spd.push_back(i->position[1].x - i->position[0].x);
+		float aspd = 0.0;
 		for (int j = 1; j < i->position.size(); j++) {
-			i->spd.push_back(i->position[j].x - i->position[j-1].x);
+			aspd += (i->position[j].x - i->position[j-1].x);
+		}
+		aspd = aspd / float(i->position.size() - 1) * float(FRAMERATE);
+		for (int j = 0; j < i->position.size(); j++) {
+			i->spd.push_back(aspd);
 		}
 	}
 }
