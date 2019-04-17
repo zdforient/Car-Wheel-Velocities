@@ -2,7 +2,7 @@
 
 Objective:
 ---------------
-Using OpenCV write a C++ program that measures the speed of the wheels as the cars pass.
+Using OpenCV write a C++ program that detects, tracks and calculates the average pixel speed of the wheels as the cars pass.
 
 ---------------
 
